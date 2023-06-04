@@ -1,0 +1,330 @@
+%-------------------------
+% Rezume, a latex resume template for developers
+% Author : Nanu Panchamurthy
+% Based off of: https://github.com/sb2nov/resume
+% License : MIT
+
+% Hope this resume template helps you land an awesome job. If you found this helpful, please consider starring the github repo here, .
+%-------------------------
+
+
+
+%------------PACKAGES----------------
+\documentclass[a4paper,11pt]{article}
+
+\usepackage{verbatim} % reimplements the "verbatim" and "verbatim*" environments
+
+\usepackage{titlesec} % provides an interface to sectioning commands i.e. custom elements
+
+\usepackage{color} % provides both foreground and background color management
+
+\usepackage{enumitem} % provides control over enumerate, itemize and description
+
+\usepackage{fancyhdr} % provides extensive facilities for constructing headers, footers and also controlling their use
+
+\usepackage{tabularx} % defines an environment tabularx, extension of "tabular" with an extra designator x, paragraph like column whose width automatically expands to fill the width of the environment
+
+\usepackage{latexsym} % provides mathematical symbols
+
+\usepackage{marvosym} % provides martin vogel's symbol font which contains various symbols
+
+\usepackage[empty]{fullpage} % sets margins to one inch and removes headers, footers etc..
+
+\usepackage[hidelinks]{hyperref} % removes color and shadow of hyperlinks
+
+\usepackage[normalem]{ulem} % provides "\ul" (uline) command which will break at line breaks
+
+\usepackage[english]{babel} % provides culturally determined typographical rules for wide range of languages
+%-----------------------------------------
+
+\input glyphtounicode % converts glyph names to unicode
+\pdfgentounicode=1 % ensures pdfs generated are ats readable
+
+%----------FONT OPTIONS-------------------
+\usepackage[default]{sourcesanspro} % uses the font source sans pro
+\urlstyle{same} % changes url font from default urlfont to font being used by the document
+%-----------------------------------------
+
+
+%----------MARGIN OPTIONS-----------------
+\pagestyle{fancy} % set page style to one configured by fancyhdr
+\fancyhf{} % clear all header and footer fields
+
+\renewcommand{\headrulewidth}{0in} % sets thickness of linerule under header to zero
+\renewcommand{\footrulewidth}{0in} % sets thickness of linerule over footer to zero
+
+\setlength{\tabcolsep}{0in} % sets thickness of column separator in tables to zero
+
+% origin of the document is one inch from the top and from and the left
+% oddsidemargin and evensidemargin both refer to the left margin
+% right margin is indirectly set using oddsidemargin
+\addtolength{\oddsidemargin}{-0.5in}
+\addtolength{\topmargin}{-0.5in}
+
+\addtolength{\textwidth}{1.0in} % sets width of text area in the page to one inch
+\addtolength{\textheight}{1.0in} % sets height of text area in the page to one inch
+
+\raggedbottom{} % makes all pages the height of current page, no extra vertical space added
+\raggedright{} % makes all pages the width of current page, no extra horizontal space added
+%------------------------------------------
+
+
+%--------SECTIONING COMMANDS---------
+% \titleformat{<command>}
+%   [<shape>]{<format>}{<label>}{<sep>}
+%     {<before-code>}[<after-code>]
+
+% command is the sectioning command to be redefined
+% shape is the style of the font; scshape stands for small caps style
+% format is the format to be applied to whole title- label and text; absent here
+% label defines the label
+% sep is the horizontal separation between label and title body
+% before-code is the code to be executed before
+% after-code is the code to be executed after
+
+\titleformat{\section}
+  {\scshape\large}{}
+    {0em}{\color{blue}}[\color{black}\titlerule\vspace{0pt}]
+%-------------------------------------
+
+
+%--------REDEFINITIONS----------------
+% redefines the style of the bullet point
+\renewcommand\labelitemii{$\vcenter{\hbox{\tiny$\bullet$}}$}
+
+% redefines the underline depth to 2pt
+\renewcommand{\ULdepth}{2pt}
+%-------------------------------------
+
+
+%--------CUSTOM COMMANDS--------------
+%\vspace{} defines a vertical space of given size, modifying this in custom commands can help stretch or shrink resume to remove or add content
+
+% resumeItem renders a bullet point
+\newcommand{\resumeItem}[1]{
+  \item\small{#1}
+}
+
+% commands to start and end itemization of resumeItem, rightmargin set to 0.11in to avoid the overflow of resumetItem beyond whatever resumeItemHeading is being used
+\newcommand{\resumeItemListStart}{\begin{itemize}[rightmargin=0.11in]}
+\newcommand{\resumeItemListEnd}{\end{itemize}}
+
+% commands to start and end itemization of Bullet items, rightmargin set to 0.11in to avoid the overflow of resumetItem beyond whatever resumeItemHeading is being used
+\newcommand{\resumeItemBulletListStart}{\begin{itemize}[rightmargin=0.11in, wide=0pt]}
+\newcommand{\resumeItemBulletListEnd}{\end{itemize}}
+
+% resumeSectionType renders a bolded type to be used under a section, used as skill type here, middle element is used to keep ":"s in the same vertical line
+\newcommand{\resumeSectionType}[3]{
+  \item\begin{tabular*}{0.96\textwidth}[t]{
+    p{0.28\linewidth}p{0.02\linewidth}p{0.89\linewidth}
+  }
+    \textbf{#1} & #2 & #3
+  \end{tabular*}\vspace{-2pt}
+}
+
+% resumeTrioHeading renders three elements in three columns with second element being italicized and first element bolded, can be used for projects with three elements
+\newcommand{\resumeTrioHeading}[3]{
+  \item\small{
+    \begin{tabular*}{0.96\textwidth}[t]{
+      l@{\extracolsep{\fill}}c@{\extracolsep{\fill}}r
+    }
+      \textbf{#1} & \textit{#2} & #3
+    \end{tabular*}
+  }
+}
+
+% resumeQuadHeading renders four elements in a two columns with the second row being italicized and first element of first row bolded, can be used for experience and projects with four elements
+\newcommand{\resumeQuadHeading}[4]{
+  \item
+  \begin{tabular*}{0.96\textwidth}[t]{l@{\extracolsep{\fill}}r}
+    \textbf{#1} & #2 \\
+    \textit{\small#3} & \textit{\small #4} \\
+  \end{tabular*}
+}
+
+% resumeQuadHeadingChild renders the second row of resumeQuadHeading, can be used for experience if different roles in the same company need to added
+\newcommand{\resumeQuadHeadingChild}[2]{
+  \item
+  \begin{tabular*}{0.96\textwidth}[t]{l@{\extracolsep{\fill}}r}
+    \textbf{\small#1} & {\small#2} \\
+  \end{tabular*}
+}
+
+% commands to start and end itemization of resumeQuadHeading, lefmargin for left indent of 0.15in for resumeItems
+\newcommand{\resumeHeadingListStart}{
+  \begin{itemize}[leftmargin=0.15in, label={}]
+}
+\newcommand{\resumeHeadingListEnd}{\end{itemize}}
+%-------------------------------------------
+
+
+%__________________RESUME____________________
+% You can rearrange sections in any order you may prefer
+\begin{document}
+
+%-----------CONTACT DETAILS------------------
+% Make sure all the details are correct, you can add more links in the first row of second column if needed
+
+\begin{tabular*}{\textwidth}{l@{\extracolsep{\fill}}r}
+  \textbf{\Huge Ali Iktider \vspace{2pt}} & % row = 1, col = 1
+  Location: Windsor, ON, Canada \\ % row = 1, col = 2
+  \href{https://www.aisayam.com/}{\uline{aisayam.com}} $|$ % row = 2, col = 1
+  \href{https://www.linkedin.com/in/ali-iktider-sayam/}{\uline{LinkedIn}} $|$ % row = 2, col = 1
+  % \href{https://github.com/sayam56}{\uline{GitHub}} $|$ % row = 2, col = 1
+  \href{https://github.com/sayam56}{\uline{GitHub}} & % row = 2, col = 1
+  Email: \href{mailto:iktider@uwindsor.ca}{\uline{iktider@uwindsor.ca}} $|$ % row = 2, col = 2
+  Mobile: (437) 557-0615 \\ % row = 2, col = 2
+\end{tabular*}
+%--------------------------------------------
+
+
+%-----------SUMMARY--------------------------
+% Keep this short, simple and straigth to point
+
+\section{SUMMARY OF QUALIFICATIONS}
+    \resumeItemBulletListStart{}
+      \resumeItem{Almost 3 years of professional experience in working with manual and automation testing using \textbf{Selenium, Python, Robot framework, Zephyr Scale} in Agile Environment.}
+      \resumeItem{Possess extensive experience in \textbf{mentoring and training} aspiring engineers, facilitating seamless integration into test automation team.}
+      \resumeItem{Proficiency in identifying automation test scope, devising comprehensive regression cycles, and conducting thorough research on emerging tools and technologies to enhance project stability.}
+      \resumeItem{Exceptional communication, teamwork, and problem-solving skills while fostering collaborative relationships with project teams, colleagues, and clients.}
+    \resumeItemBulletListEnd{}
+%--------------------------------------------
+
+
+%--------------SKILLS------------------------
+% Add or remove resumeSectionTypes according to your needs
+
+\section{TECHNICAL SKILLS}
+  \resumeHeadingListStart{}
+    \resumeSectionType{Programming Languages}{:}{Python, JavaScript, Dart, PHP, HTML, CSS}
+    \resumeSectionType{UI Automation Technologies}{:}{Selenium- Python, ROBOT Framework}
+    \resumeSectionType{Testcase Management Tools}{:}{Zephyr Scale, TestRail}
+    \resumeSectionType{Web Technologies}{:}{Azure DevOps Portal, Laravel, SASS/SCSS, Node.JS, Sanity}
+    \resumeSectionType{Database Management}{:}{Azure SQL, MSSQL, MySql}
+    \resumeSectionType{Mobile Application}{:}{Flutter}
+    \resumeSectionType{Version Control System Tools}{:}{Git with Azure DevOPS, SourceTree, DiffMerge, Github}
+    \resumeSectionType{Project Management Tools}{:}{Jira, Confluence, Plaky, Trello}
+    \resumeSectionType{Other Technologies}{:}{Vercel, BashScript, cPanel}
+  \resumeHeadingListEnd{}
+%--------------------------------------------
+
+
+%-----------EXPERIENCE-----------------------
+% Distill all your talking points to small bullet points which follow the pattern "challenge-action-result" for maximum efficiency. Try to quantify (use numbers) your points whenver possible, highlist words of importance
+
+\section{WORK EXPERIENCES}
+\resumeHeadingListStart{}
+  \resumeQuadHeading{Senior Software QA Engineer (Automation)}{Jan 2021 -- Apr 2023}
+  {Enosis Solutions}{Dhaka, Bangladesh}
+    \resumeItemListStart{}
+      \resumeItem{Reduced automation regression test execution time by \textbf{40\%} by introducing and optimizing parallel execution through robust automation framework.}
+      \resumeItem{Led and mentored a \textbf{team of 5 automation QA members} by reviewing requirements, test plans, identifying automation scope, and maintaining the CI pipeline.}
+      \resumeItem{Facilitated comprehensive training sessions for aspiring test automation engineers, covering \textbf{Selenium with Python, Robot framework, POM, and diverse test automation techniques}.}
+      \resumeItem{Strengthened framework stability and robustness by researching new libraries and optimizing existing code practices, resulting in improved performance.}
+    \resumeItemListEnd{}
+
+  \resumeQuadHeading{Software Engineer}{Nov 2020 -- Jan 2021}
+  {SCT. Bangla LTD.}{Dhaka, Bangladesh}
+    \resumeItemListStart{}
+      \resumeItem{Acquired fluency in the \textbf{Flutter framework} and quickly joined production team for development, showcasing a rapid learning curve within two weeks of starting training.}
+      \resumeItem{Analyzed and executed project enhancements, recognizing areas for improvement and implementing effective solutions.}
+    \resumeItemListEnd{}
+
+  \resumeQuadHeading{Instructor - Web and Mobile Application Development}{Aug 2020 -- Oct 2020}
+    {UIU App Forum}{Dhaka, Bangladesh}
+    \resumeItemListStart{}
+      \resumeItem{Provided supervision and guidance to students in course project work while hosting workshops on development projects to foster knowledge sharing and collaboration.}
+    \resumeItemListEnd{}
+\resumeHeadingListEnd{}
+%---------------------------------------------
+
+
+%-----------EDUCATION-------------------------
+% Mention your CGPA, if its good, in the first row of second column
+
+\section{EDUCATION}
+  \resumeHeadingListStart{}
+    \resumeQuadHeading{Master of Applied Computing }{May 2023 – Present}
+    {\textup {University of Windsor}}{\normalfont Windsor, ON, Canada}
+    \resumeQuadHeading{Bachelor of Science in Computer Science and Engineering}{Aug 2016 – Oct 2020}
+    {\textup{United International University}}{\normalfont Dhaka, Bangladesh}
+  \resumeHeadingListEnd{}
+%---------------------------------------------
+
+
+%-----------Capstone PROJECT--------------------------
+% Use resumeQuadHeading if four elements are feasible (ex: demo video link), else use resumeTrioHeading. Keep the bullet points simple and concise and try to cover wide variety of skills you have used to build these projects
+
+\section{CAPSTONE PROJECT}
+  \resumeHeadingListStart{}
+    \resumeTrioHeading{\href{https://www.youtube.com/watch?v=2hITx4YWFkU}{\uline{RFID Based - UIU Smart Card System}}}{}{\href{https://github.com/sayam56/UIU-Smart-Card-Web-App}{\uline{Source Code}}}
+        
+        {Designed and Built an integrated mobile and web applications leveraging IoT technologies to create a contactless automated system for efficient management and recording of live attendance, as well as seamless buying and selling of university services.}
+        
+        {\textbf{Technologies Used:}}
+      \resumeItemListStart{}
+        \resumeItem{RFID, NFC, NodeMCU - For Data Communication}
+        \resumeItem{JAVA - For Mobile Application Development}
+        \resumeItem{HTML, CSS: Bootstrap4, PHP, MySQL - For Web Application}
+      \resumeItemListEnd{}
+  \resumeHeadingListEnd{}
+%--------------------------------------------
+
+
+%-----------PROJECTS--------------------------
+% Use resumeQuadHeading if four elements are feasible (ex: demo video link), else use resumeTrioHeading. Keep the bullet points simple and concise and try to cover wide variety of skills you have used to build these projects
+
+\section{PERSONAL PROJECTS}
+  \resumeHeadingListStart{}
+    \resumeTrioHeading{\href{https://www.youtube.com/watch?v=f8TswNEPbdw}{\uline{Spyfall - Online Multiplayer Game}}}{}{\href{https://github.com/sayam56/SpyFall}{\uline{Source Code}}}
+
+        {Utilized full-stack web technologies to create Spyfall, a real-time party game enabling 4-6 players to engage in immersive gameplay.}
+        
+        {\textbf{Technologies Used:} jQuery, PHP, AJAX, MySQL}
+
+      \resumeTrioHeading{\href{https://www.youtube.com/watch?v=E_qBaJ9Mhp8}{\uline{Patient Sense}}}{}{\href{https://github.com/sayam56/Patient_Sense}{\uline{Source Code}}}
+
+      {Collaborated on a symptom-driven doctor recommendation system, utilizing full-stack web development technologies and integrated IBM Watson AI to generate predictions with 85\% accuracy.}
+      
+      {\textbf{Technologies Used:} jQuery, PHP, IBM Watson Health}
+
+
+      \resumeTrioHeading{\href{https://www.youtube.com/watch?v=SVvnH6wB_TU}{\uline{Text to Handwriting Conversion Utility}}}{}{\href{https://github.com/sayam56/txtToHandwrittenPDF}{\uline{Source Code}}}
+
+      {Implemented a web utility which seamlessly converts .txt files into handwritten PDF documents. Leveraged PHP to execute a Python script and efficiently saved resulting PDFs to designated folders for streamlined organization.}
+      
+      {\textbf{Technologies Used:} PHP, Python}
+  \resumeHeadingListEnd{}
+%--------------------------------------------
+
+
+%----------------Certifications and Achivements----------------------
+% You can add your acheivements, accolades, certifications etc. here.
+
+\section{CERTIFICATIONS AND ACHIEVEMENTS}
+  \resumeItemBulletListStart{}
+    \resumeItem{\href{https://resume.aisayam.com/res/OWASP/Cert_OWASP_Top10_Advanced.pdf}{\uline{Professional Certification on Web Application Security With OWASP.}}}
+    \resumeItem{\href{https://resume.aisayam.com/res/HIPAA/HipaaHitechPrivacyForBusinessAssociates.png}{\uline{HIPAA HITECH Privacy for Business Associates 2021.}}}
+    \resumeItem{\href{https://github.com/sayam56?achievement=arctic-code-vault-contributor&tab=achievements}{\uline{GitHub Arctic Code Vault Contributor.}}}
+    \resumeItem{\href{https://resume.aisayam.com//res/project_champ.pdf}{\uline{Champion In UIU Software Project Show Spring 2019: "Software Category".}}}   
+  \resumeItemBulletListEnd{}
+%--------------------------------------------
+
+%----------------References----------------------
+% You can add your acheivements, accolades, certifications etc. here.
+
+% \section{References}
+%   \resumeHeadingListStart{}
+%       \resumeTrioHeading{{Tayseer Edouni}}{}{\href{https://www.planetdds.com/}{\uline{Software Engineer - Planet DDS}}}
+
+%       {Email: \href{mailto:taedouni@gmail.com}{\uline{taedouni@gmail.com}}}
+%       {\newline Mobile: +1 (213) 999-2474}
+
+%       \resumeTrioHeading{{MD Al Imran Sefat}}{}{\href{https://www.thebrightapp.xyz/}{\uline{Senior Software Engineer - Bright}}}
+
+%       {Email: \href{mailto:imransefat@gmail.com}{\uline{imransefat@gmail.com}}}
+%       {\newline Mobile: +61 (420) 462-079
+%    \resumeHeadingListEnd{}
+%--------------------------------------------
+
+\end{document}
